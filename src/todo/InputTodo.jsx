@@ -3,30 +3,31 @@ import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 export const InputTodo = ({ todos, setTodos }) => {
-  const [todo, setTodo] = useState('')
-  const [id, setId] = useState('')
-  const [date, setDate] = useState('')
+  const [formValues, setFormValues] = useState({
+    id: '',
+    todo: '',
+    status: 'pending',
+  })
 
   const saveTodo = () => {
-    const newTodo = { todo, id, date }
-    const updatedTodos = [newTodo, ...todos]
-    setTodos(updatedTodos)
+    const updatedTodos = [{ ...formValues }, ...todos]
+    setTodos((prevTodos) => [{ ...formValues }, ...prevTodos])
     localStorage.setItem('todos', JSON.stringify(updatedTodos))
   }
 
   const handleTodo = ({ target }) => {
-    setTodo(target.value)
-    setId(uuid())
-    setDate(new Date().toLocaleString())
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      id: uuid(),
+      todo: target.value,
+    }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (todo.length <= 2) return
+    if (formValues.todo.length <= 2) return
     saveTodo()
-    setTodo('')
-    setId('')
-    setDate('')
+    setFormValues({ id: '', todo: '', status: 'pending' })
   }
 
   return (
@@ -35,7 +36,7 @@ export const InputTodo = ({ todos, setTodos }) => {
         type='text'
         name='todoInput'
         placeholder='Add your new task...'
-        value={todo}
+        value={formValues.todo}
         onChange={handleTodo}
       />
       <button>Add</button>

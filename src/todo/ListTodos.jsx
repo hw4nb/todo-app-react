@@ -22,15 +22,15 @@ export const ListTodos = () => {
       <h1 className='text-center'>Todo App</h1>
       <InputTodo todos={todos} setTodos={setTodos} />
       <ul>
-        {todos.map(({ todo, id }) => (
-          <Todo key={id} id={id} todo={todo} setTodos={setTodos} />
+        {todos.map((todo) => (
+          <Todo key={todo.id} todo={todo} setTodos={setTodos} />
         ))}
       </ul>
       {todos.length > 0 && (
         <div className='clear'>
           <span>
-            You have {todos.length} pending{' '}
-            {todos.length > 1 ? 'tasks' : 'task'}
+            You have {todos.filter((todo) => todo.status === 'pending').length}{' '}
+            pending {todos.length > 1 ? 'tasks' : 'task'}
           </span>
           <button onClick={handleDeleteTodos}>Clear All</button>
         </div>
