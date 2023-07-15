@@ -11,6 +11,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  uuid:
+    specifier: ^9.0.0
+    version: 9.0.0
 
 devDependencies:
   '@types/react':
@@ -34,6 +37,9 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: ^0.4.1
     version: 0.4.1(eslint@8.44.0)
+  prop-types:
+    specifier: ^15.8.1
+    version: 15.8.1
   vite:
     specifier: ^4.4.0
     version: 4.4.0
@@ -1662,6 +1668,11 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /uuid@9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /vite@4.4.0:
     resolution: {integrity: sha512-Wf+DCEjuM8aGavEYiF77hnbxEZ+0+/jC9nABR46sh5Xi+GYeSvkeEFRiVuI3x+tPjxgZeS91h1jTAQTPFgePpA==}

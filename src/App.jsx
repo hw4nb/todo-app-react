@@ -1,10 +1,11 @@
 import './App.css'
+import { ListTodos } from './todo/ListTodos'
 
 function App() {
   return (
-    <>
-      <h1>Hello world</h1>
-    </>
+    <main className='container'>
+      <ListTodos />
+    </main>
   )
 }
 
