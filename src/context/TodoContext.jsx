@@ -16,28 +16,25 @@ export const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useLocalStorage('todos', [])
 
   const addTodo = (todo) => {
-    setTodos((todos) => [{ id: uuid(), todo, status: 'pending' }, ...todos])
+    setTodos([{ id: uuid(), todo, status: 'pending' }, ...todos])
   }
 
   const checkTodo = (id, checked) => {
-    setTodos((todos) => {
-      const todoToUpdate = todos.find((todo) => todo.id === id)
-      const updatedTodos = todos.filter((todo) => todo.id !== id)
+    const todoToUpdate = todos.find((todo) => todo.id === id)
+    const updatedTodos = todos.filter((todo) => todo.id !== id)
+    if (!todoToUpdate) return
 
-      if (!todoToUpdate) return
+    if (checked) {
+      updatedTodos.push({ ...todoToUpdate, status: 'done' })
+    } else {
+      updatedTodos.unshift({ ...todoToUpdate, status: 'pending' })
+    }
 
-      if (checked) {
-        updatedTodos.push({ ...todoToUpdate, status: 'done' })
-      } else {
-        updatedTodos.unshift({ ...todoToUpdate, status: 'pending' })
-      }
-
-      return updatedTodos
-    })
+    setTodos([...updatedTodos])
   }
 
   const deleteTodo = (id) => {
-    setTodos((todos) => todos.filter((todo) => todo.id !== id))
+    setTodos([...todos.filter((todo) => todo.id !== id)])
   }
 
   const deleteAllTodos = () => setTodos([])
