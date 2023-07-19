@@ -19,7 +19,8 @@ export const Todo = ({ todo, setTodos }) => {
   }
 
   const handleDeleteTodo = () => {
-    if (!confirm(`Are you sure you want to delete the task: ${todo.todoText}?`))
+    console.log(todo)
+    if (!confirm(`Are you sure you want to delete the task: ${todo.todo}?`))
       return
 
     setTodos((todos) => {
