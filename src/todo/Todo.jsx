@@ -8,11 +8,10 @@ export const Todo = ({ todo, setTodos }) => {
       const todoToUpdate = todos.find((todoItem) => todoItem.id === id)
       const updatedTodos = todos.filter((todoItem) => todoItem.id !== id)
 
-      if (target.checked) {
-        updatedTodos.push({ ...todoToUpdate, status: 'done' })
-      } else {
-        updatedTodos.unshift({ ...todoToUpdate, status: 'pending' })
-      }
+      updatedTodos.push({
+        ...todoToUpdate,
+        status: target.checked ? 'done' : 'pending',
+      })
 
       localStorage.setItem('todos', JSON.stringify(updatedTodos))
       return updatedTodos
