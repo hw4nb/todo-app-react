@@ -1,33 +1,19 @@
-import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { v4 as uuid } from 'uuid'
+import { useTodos } from '../context/TodoContext'
 
-export const InputTodo = ({ todos, setTodos }) => {
-  const [formValues, setFormValues] = useState({
-    id: '',
-    todo: '',
-    status: 'pending',
-  })
-
-  const saveTodo = () => {
-    const updatedTodos = [{ ...formValues }, ...todos]
-    setTodos((prevTodos) => [{ ...formValues }, ...prevTodos])
-    localStorage.setItem('todos', JSON.stringify(updatedTodos))
-  }
+export const InputTodo = () => {
+  const { addTodo } = useTodos()
+  const [todo, setTodo] = useState('')
 
   const handleTodo = ({ target }) => {
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      id: uuid(),
-      todo: target.value,
-    }))
+    setTodo(target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (formValues.todo.length <= 2) return
-    saveTodo()
-    setFormValues({ id: '', todo: '', status: 'pending' })
+    if (todo.length <= 2) return
+    addTodo(todo)
+    setTodo('')
   }
 
   return (
@@ -36,15 +22,10 @@ export const InputTodo = ({ todos, setTodos }) => {
         type='text'
         name='todoInput'
         placeholder='Add your new task...'
-        value={formValues.todo}
+        value={todo}
         onChange={handleTodo}
       />
       <button>Add</button>
     </form>
   )
-}
-
-InputTodo.propTypes = {
-  todos: PropTypes.array,
-  setTodos: PropTypes.func,
 }

@@ -1,29 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useTodos } from '../context/TodoContext'
 import { InputTodo } from './InputTodo'
 import { Todo } from './Todo'
 
 export const ListTodos = () => {
-  const [todos, setTodos] = useState([])
+  const { todos, deleteAllTodos } = useTodos()
 
   const handleDeleteTodos = () => {
     if (!confirm('Are you sure you want to delete all tasks?')) return
-    setTodos([])
-    localStorage.clear()
+    deleteAllTodos()
   }
-
-  useEffect(() => {
-    const storedTodos = localStorage.getItem('todos')
-    if (!storedTodos) return
-    setTodos(JSON.parse(storedTodos))
-  }, [])
 
   return (
     <>
       <h1 className='text-center'>Todo App</h1>
-      <InputTodo todos={todos} setTodos={setTodos} />
+      <InputTodo />
       <ul>
         {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} setTodos={setTodos} />
+          <Todo key={todo.id} todo={todo} />
         ))}
       </ul>
       {todos.length > 0 && (

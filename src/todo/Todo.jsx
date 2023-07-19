@@ -1,33 +1,19 @@
 import PropTypes from 'prop-types'
+import { useTodos } from '../context/TodoContext'
 
-export const Todo = ({ todo, setTodos }) => {
+export const Todo = ({ todo }) => {
   const { id, todo: todoText, status } = todo
+  const { checkTodo, deleteTodo } = useTodos()
 
   const handleCheckTodo = ({ target }) => {
-    setTodos((todos) => {
-      const todoToUpdate = todos.find((todoItem) => todoItem.id === id)
-      const updatedTodos = todos.filter((todoItem) => todoItem.id !== id)
-
-      updatedTodos.push({
-        ...todoToUpdate,
-        status: target.checked ? 'done' : 'pending',
-      })
-
-      localStorage.setItem('todos', JSON.stringify(updatedTodos))
-      return updatedTodos
-    })
+    checkTodo(id, target.checked)
   }
 
   const handleDeleteTodo = () => {
-    console.log(todo)
     if (!confirm(`Are you sure you want to delete the task: ${todo.todo}?`))
       return
 
-    setTodos((todos) => {
-      const updatedTodos = todos.filter((_) => _.id !== todo.id)
-      localStorage.setItem('todos', JSON.stringify(updatedTodos))
-      return updatedTodos
-    })
+    deleteTodo(id)
   }
 
   return (
