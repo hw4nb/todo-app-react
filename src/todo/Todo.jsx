@@ -19,7 +19,9 @@ export const Todo = ({ todo, setTodos }) => {
   }
 
   const handleDeleteTodo = () => {
-    if (!confirm(`Are you sure you want to delete the task: ${todo}?`)) return
+    if (!confirm(`Are you sure you want to delete the task: ${todo.todoText}?`))
+      return
+
     setTodos((todos) => {
       const updatedTodos = todos.filter((_) => _.id !== todo.id)
       localStorage.setItem('todos', JSON.stringify(updatedTodos))
